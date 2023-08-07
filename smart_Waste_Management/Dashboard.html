@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automatic Image Slider</title>
+    <style>
+  body{
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 68%, rgba(248,238,180,1) 100%);
+}
+header {
+    /* background-color: #f2f2f2; */
+    /* background-color: #f8f9d2; background-image: linear-gradient(315deg, #f8f9d2 0%, #e8dbfc 74%);*/
+    padding: 0%; 
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    
+    
+  }
+  
+  * {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgb(250, 250, 250) url(http://lorempixel.com/1920/1080/nature/);
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  background: rgb(255,255,255);
+       background: linear-gradient(90deg, rgba(255,255,255,1) 68%, rgba(248,238,180,1) 100%);
+}
+
+a {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+
+#navbar {
+  background: white;
+  color: rgb(13, 26, 38);
+  position: fixed;
+  top: 0;
+  height: 60px;
+  line-height: 60px;
+  width: 100vw;
+  z-index: 10;
+  
+}
+
+.nav-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 70%;
+} @media(max-width: 768px) {
+    .nav-wrapper {
+      width: 90%;
+    }
+  } @media(max-width: 638px) {
+      .nav-wrapper {
+        width: 100%;
+      }
+    } 
+
+
+.logo {
+  float: left;
+  margin-left: -130px;
+  font-size: 1.5em;
+  margin-top: 0px;
+  height: 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+} @media(max-width: 768px) {
+    .logo {
+      margin-left: 0px; 
+    }
+  }
+
+#navbar ul {
+  display: inline-block;
+  float: right;
+  list-style: none;
+  text-align: center;
+  
+  margin-top: -2px;
+  text-align: right;
+  transition: transform 0.5s ease-out;
+  -webkit-transition: transform 0.5s ease-out;
+} @media(max-width: 640px) {
+    #navbar ul {
+      display: none;
+    }
+  } @media(orientation: landscape) {
+      #navbar ul {
+        display: inline-block;
+      }
+    }
+
+#navbar li {
+  display: inline-block;
+ 
+}
+
+#navbar li a {
+  color: rgb(13, 26, 38);
+  display: block;
+  font-size:20px;
+  height: 50px;
+  letter-spacing: 1px;
+  margin: 0 20px;
+
+  padding: 0 4px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  text-align: center;
+  
+}
+
+#navbar li a:hover {
+  /* border-bottom: 1px solid rgb(28, 121, 184); */
+  color: rgb(49, 176, 250);
+  transition: all 1s ease;
+  -webkit-transition: all 1s ease;
+}
+
+/* Animated Bottom Line */
+#navbar li a:before, #navbar li a:after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 1px;
+  bottom: -1px;
+  background: rgb(8, 47, 83);
+}
+
+#navbar li a:before {
+  left: 0;
+  transition: 0.5s;
+}
+
+#navbar li a:after {
+  background: rgb(13, 26, 38);
+  right: 0;
+  /* transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1); */
+}
+
+#navbar li a:hover:before {
+  background: rgb(13, 26, 38);
+  width: 100%;
+  transition: width 0.5s cubic-bezier((0.22, 0.61, 0.36, 1));
+}
+
+#navbar li a:hover:after {
+  background: transparent;
+  width: 100%;
+  /* transition: 0s; */
+}
+
+.slider-container {
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    animation: slide 5s infinite; /* Adjust the duration as needed */
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    33.33% {
+        transform: translateX(-100%);
+    }
+    66.66% {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateX(-300%);
+    }
+}
+
+.slider img {
+    width: 100%;
+    height: 300px; /* Set the desired height for your images */
+    object-fit: cover;
+}
+.grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 130px;
+      
+    }
+    
+    .grid-box {
+      text-align: center;
+      border: 3px solid #ccc;
+      padding: 5px;
+      border-radius: 10px;
+      width: 280px;
+      margin-left: 70px;
+    }
+ .grid-box,
+#statusTable {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+    
+    .grid-box img {
+      max-width: 150px;
+      height: 150px;
+    }
+    
+    .grid-box span {
+      font-size: 24px;
+      font-weight: bold;
+      margin-left: 50px;
+      text-align: center;
+    }
+    img {
+            max-width: 100%;
+            height: auto;
+        }
+    .center {
+     position: absolute;
+     top: 78%;
+     left: 19%;
+     font-size: 30px;
+     font-family: 'Poppins';
+    transform: translate(-50%, -50%);
+}
+    .centered {
+     position: absolute;
+     top: 78%;
+     left: 52%;
+     font-size: 30px;
+     font-family: 'Poppins';
+     transform: translate(-50%, -50%);
+}
+.cent{
+     position: absolute;
+     top: 78%;
+     left: 85%;
+     font-size: 30px;
+     font-family: 'Poppins';
+     transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 768px) {
+            
+            nav ul {
+                margin-left: 40px;
+                font-size: 16px;
+            }
+            nav ul li {
+                margin-left: 40px;
+            }
+            
+            .slider img {
+                height: 200px;
+            }
+            
+            .grid-box {
+                width: 200px;
+                margin-left: 20px;
+            }
+           
+            .grid-box span {
+                font-size: 18px;
+            }
+           
+            .center, .centered, .cent {
+                font-size: 24px;
+                top: 70%;
+            }
+        }
+/* .tab{
+  margin-right: 400px;
+} */
+.table-left {
+  float: left;
+}
+ #statusTable {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto; 
+}
+
+#statusTable th, #statusTable td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+#statusTable th {
+  background-color: #f2f2f2;
+}
+
+
+#statusTable tr[data-status="Low"] {
+  background-color: #ffe54e;
+}
+
+
+#statusTable tr[data-status="Low"] td {
+  color: #9f1e1e;
+}
+
+/* Adjust font size for the table */
+#statusTable th, #statusTable td {
+  font-size: 16px;
+}
+
+.table-container {
+        max-width: 800px;
+        margin: 0 auto; 
+        padding: 80px;
+        transform: translateX(-100%);
+       animation: slideInTable 1s forwards; 
+  }
+  @keyframes slideInTable {
+  to {
+    transform: translateX(0);
+  }
+}
+.map-right {
+  float: right;
+  margin-top: 100px;
+  margin-right: 100px;
+  transform: scale(0.5);
+  animation: zoomInMap 1s forwards;
+  border-radius: 10px;
+}
+
+@keyframes zoomInMap {
+  to {
+    transform: scale(1);
+  }
+}
+  #map{
+    float: right;
+    margin-top: 60px;
+    margin-right: 100px;
+    
+  }
+
+    </style>
+</head>
+<body>
+    
+  <nav id="navbar" class="">
+    <div class="nav-wrapper">
+     
+      <div class="logo">
+       
+        <a href="#home"><img width="60px" height="40px" src="logo1.png">Smart Dustbin</a>
+      </div>
+      <ul id="menu">
+        <li><a href="Homepage.html">Home</a></li>
+    
+     <li><a href="Analysis.html">Dashboard</a></li>
+     
+     <li><a href="rating.html">Rating</a></li>
+      </ul>
+    </div>
+  </nav>
+ 
+    
+    <div class="grid-container">
+        <div class="grid-box" style="background-image: linear-gradient(315deg, #f8f9d2 0%, #416F39 74%)">
+          <img  id="myImage"src="Bin3.png" alt="Grid Image 1" >
+          <div id="one">0</div>
+          <h4>Low</h4>
+        </div>
+        <div class="grid-box" style="background-image: linear-gradient(315deg, #f8f9d2 0%, #FFE54E 74%)">
+          <img  id="myImage1" src="Bin1.png" alt="Grid Image 2">
+          <div id="two">0</div>
+          <h4>Medium</h4>
+        </div>
+        <div class="grid-box"  style="background-image: linear-gradient(315deg, #f8f9d2 0%, #9F1E1E 74%)">
+          <img id="myImage2" src="Bin2.png" alt="Grid Image 3">
+          <div id="three">0</div>
+          <h4>High</h4>
+        </div>
+      </div>
+      <div class="table-container table-left slideInTable">
+      <div id="tab" style="max-width: 600px;">
+        <table id="statusTable" style="margin: 0 auto;">
+          <!-- <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr> -->
+        </table>
+      </div>
+    </div>
+    <div id="map" class="map-right" style="height: 250px; width: 550px;"></div>
+      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+      <!-- <script src="Da.js"></script> -->
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0h2bLIFH9Ccdd368ggpQ8EnYaRdoa01w&callback=initMap" async defer></script>
+      <script src="Dashboard.js.
+      "></script>
+   
+</body>
+</html>

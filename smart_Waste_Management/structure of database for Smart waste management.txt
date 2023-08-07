@@ -1,0 +1,27 @@
+Address
+      Araichiyar Street
+      Gents Hostel
+      Main Road
+Levels
+      Araichiyar Street:"87"
+      Gents Hostel:18
+      Main Road:"64"
+area_detail
+      -Nb0emh-D4benuOBDLu1
+       Address:"Gents Hostel"
+       City:"Kovilpatti"
+       Level:18
+       Status:"Low"
+       Weight:18
+       sno:1
+bin
+       bin1
+            level:18
+
+sensor
+         Level:18
+sno_counter :3
+street
+        Araichiyar Street
+        Gents Hostel
+        Main Road

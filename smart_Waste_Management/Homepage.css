@@ -1,0 +1,278 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgb(250, 250, 250) url(http://lorempixel.com/1920/1080/nature/);
+  font-family: Lato, Helvetica, Arial, sans-serif;
+ 
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 68%, rgba(248,238,180,1) 100%);
+   
+}
+
+a {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+
+#navbar {
+  background: white;
+  color: rgb(13, 26, 38);
+  position: fixed;
+  top: 0;
+  height: 60px;
+  line-height: 60px;
+  width: 100vw;
+  z-index: 10;
+  
+}
+
+.nav-wrapper {
+  margin: auto;
+  text-align: center;
+  width: 70%;
+} @media(max-width: 768px) {
+    .nav-wrapper {
+      width: 90%;
+    }
+  } @media(max-width: 638px) {
+      .nav-wrapper {
+        width: 100%;
+      }
+    } 
+
+
+.logo {
+  float: left;
+  margin-left: -130px;
+  font-size: 1.5em;
+  margin-top: 10px;
+  height: 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+} @media(max-width: 768px) {
+    .logo {
+      margin-left: 0px; 
+    }
+  }
+
+#navbar ul {
+  display: inline-block;
+  float: right;
+  list-style: none;
+  text-align: center;
+  
+  margin-top: -2px;
+  text-align: right;
+  transition: transform 0.5s ease-out;
+  -webkit-transition: transform 0.5s ease-out;
+} @media(max-width: 640px) {
+    #navbar ul {
+      display: none;
+    }
+  } @media(orientation: landscape) {
+      #navbar ul {
+        display: inline-block;
+      }
+    }
+
+#navbar li {
+  display: inline-block;
+ 
+}
+
+#navbar li a {
+  color: rgb(13, 26, 38);
+  display: block;
+  font-size:20px;
+  height: 50px;
+  letter-spacing: 1px;
+  margin: 0 20px;
+
+  padding: 0 4px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  text-align: center;
+  
+}
+
+#navbar li a:hover {
+  /* border-bottom: 1px solid rgb(28, 121, 184); */
+  color: rgb(49, 176, 250);
+  transition: all 1s ease;
+  -webkit-transition: all 1s ease;
+}
+
+/* Animated Bottom Line */
+#navbar li a:before, #navbar li a:after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 1px;
+  bottom: -1px;
+  background: rgb(8, 47, 83);
+}
+
+#navbar li a:before {
+  left: 0;
+  transition: 0.5s;
+}
+
+#navbar li a:after {
+  background: rgb(13, 26, 38);
+  right: 0;
+  /* transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1); */
+}
+
+#navbar li a:hover:before {
+  background: rgb(13, 26, 38);
+  width: 100%;
+  transition: width 0.5s cubic-bezier((0.22, 0.61, 0.36, 1));
+}
+
+#navbar li a:hover:after {
+  background: transparent;
+  width: 100%;
+  /* transition: 0s; */
+}
+.content {
+  display: flex;
+  padding: 20px;
+  font-size: 20px;
+  margin-top: -70px;
+}
+
+.image {
+  flex-basis: 30%;
+}
+
+.main-content {
+  flex-basis: 70%;
+  margin-top: 70px;
+  font-size: 25px;
+  font-family: "Poppins";
+}
+.main-content h1 {
+  font-family: "Poppins";
+  padding-top: 100px;
+}
+.par1 {
+  opacity: 50%;
+}
+.image img {
+  max-width: 100%;
+  margin-left: 20px;
+  height: 70%;
+  margin-top: 100px;
+}
+#map {
+  height: 250px;
+  width: 50%;
+  margin-left: 250px;
+}
+*/ .splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  z-index: 200;
+}
+.splash img {
+  margin-right: 50px;
+}
+.splash.display-none {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: black;
+  z-index: -10;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 1;
+  }
+}
+.fadeOut {
+  opacity: 0;
+  animation: fadeOut 1s ease-in forwards;
+} 
+
+/* Previous CSS code... */
+
+/* CSS for the 2-row grid layout */
+.grid-container {
+  margin-top: 50px;
+  margin-left: 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+  padding-left: 130px;
+  
+  
+}
+
+.quotes{
+  padding-left: 300px;
+  margin-top: -0px;
+}
+
+.grid-item {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  height: 350px;
+  width: 500px;
+  border-radius: 10px;
+}
+
+.grid-container img {
+  width: 100%;
+}
+
+/* CSS for the slideshow */
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.slideshow-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fade 3s infinite;
+  opacity: 0;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  33.33% {
+    opacity: 1;
+  }
+  66.66% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Street Ratings</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
+        margin: 0;
+        padding: 0;
+        animation: backgroundAnimation 10s infinite alternate;
+      }
+
+      @keyframes backgroundAnimation {
+        0% {
+          background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
+        }
+        100% {
+          background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
+        }
+      }
+
+      header {
+        background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+      }
+      header h1 {
+        color: #df89b5;
+      }
+
+      main {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        color: black;
+      }
+      select option {
+        color: black;
+      }
+
+      .rating-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .rating-container input[type="radio"] {
+        display: none;
+      }
+
+      .rating-container label {
+        /* color: #888; */
+        font-size: 25px;
+        margin: 0;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .rating-container input[type="radio"]:checked ~ label {
+        color: #ffc107;
+      }
+
+      .rating-container label:hover,
+      .rating-container label:hover ~ label {
+        color: #ffc107;
+      }
+
+      button {
+        display: block;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+      #street {
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Street Ratings</h1>
+    </header>
+    <main>
+      <form>
+        <label for="street">Select a Street:</label>
+        <select id="street">
+          <option value=" ">All Cities</option>
+          <!-- Add more street names here -->
+        </select>
+
+        <label>Rate the Street:</label>
+        <div class="rating-container">
+          <input type="radio" id="star5" name="rating" value="5" />
+          <label for="star5">☆</label>
+          <input type="radio" id="star4" name="rating" value="4" />
+          <label for="star4">☆</label>
+          <input type="radio" id="star3" name="rating" value="3" />
+          <label for="star3">☆</label>
+          <input type="radio" id="star2" name="rating" value="2" />
+          <label for="star2">☆</label>
+          <input type="radio" id="star1" name="rating" value="1" />
+          <label for="star1">☆</label>
+        </div>
+
+        <button type="submit">Submit Rating</button>
+      </form>
+      <canvas id="barChart" width="400" height="200"></canvas>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCEsylIm412gqUfcc9gnPTMmHJbX0O0KaE",
+        authDomain: "dustbin-monitor-1102f.firebaseapp.com",
+        databaseURL:
+          "https://dustbin-monitor-1102f-default-rtdb.firebaseio.com",
+        projectId: "dustbin-monitor-1102f",
+        storageBucket: "dustbin-monitor-1102f.appspot.com",
+        messagingSenderId: "5065718611",
+        appId: "1:5065718611:web:1aa84f7f92744a7f8e3fa6",
+        measurementId: "G-YGTVSNME62",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+      function dropdown() {
+        const dbRef = firebase.database().ref("Address");
+
+        // Fetch data from Firebase
+        dbRef.on("value", (snapshot) => {
+          const dropdown = document.getElementById("street");
+          dropdown.innerHTML = ""; // Clear previous options
+
+          // Iterate through the data and create options for the dropdown
+          snapshot.forEach((childSnapshot) => {
+            const option = document.createElement("option");
+            option.value = childSnapshot.key; // Assuming each child node has a unique key
+            option.innerText = childSnapshot.key; // Assuming each child node contains the text for the dropdown option
+            dropdown.appendChild(option);
+            console.log(childSnapshot.key);
+          });
+        });
+      }
+      dropdown();
+
+      document
+        .querySelector("form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var selectedStreet = document.getElementById("street").value;
+          var rating = document.querySelector(
+            "input[name='rating']:checked"
+          ).value;
+          if (selectedStreet && rating) {
+            // Create a new feedback object
+            var feedback = {
+              rating: parseInt(rating),
+            };
+
+            // Reference to the database under the selected street
+            var streetRef = database.ref("street/" + selectedStreet);
+
+            // Push the feedback data to Firebase under the street node
+            streetRef
+              .push(feedback)
+              .then(function () {
+                // Clear the form after successful submission
+                document.getElementById("street").value = "";
+                // document.querySelector("input[name='rating']:checked").checked = false;
+                alert("Feedback submitted successfully!");
+              })
+              .catch(function (error) {
+                console.error("Error submitting feedback:", error);
+                alert("An error occurred while submitting feedback.");
+              });
+          } else {
+            alert(
+              "Please select a street and rate it before submitting the feedback."
+            );
+          }
+        });
+      function calculateStreetRatings(snapshot) {
+        const streetsData = snapshot.val();
+        const streets = Object.keys(streetsData);
+        const ratings = streets.map((street) => {
+          const streetData = streetsData[street];
+          const ratingsArray = Object.values(streetData);
+          const totalRating = ratingsArray.reduce(
+            (acc, rating) => acc + rating.rating,
+            0
+          );
+          return { street, totalRating };
+        });
+        return ratings;
+      }
+      let barChart;
+      function updateBarChart() {
+        const streetsRef = database.ref("street");
+
+        streetsRef.once("value").then(function (snapshot) {
+          const ratings = calculateStreetRatings(snapshot);
+          const labels = ratings.map((rating) => rating.street);
+          const values = ratings.map((rating) => rating.totalRating);
+
+          barChart.data.labels = labels;
+          barChart.data.datasets[0].data = values;
+          barChart.update();
+        });
+      }
+
+      function initBarChart() {
+        const ctx = document.getElementById("barChart").getContext("2d");
+        barChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [],
+            datasets: [
+              {
+                label: "Total Rating",
+                data: [],
+                backgroundColor: "#007bff",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        //     // Update the chart immediately on page load
+        updateBarChart();
+
+        //     // Update the chart every 5 seconds
+        setInterval(updateBarChart, 5000);
+      }
+
+      //   // Call the initialization function when the page loads
+      window.addEventListener("load", initBarChart);
+    </script>
+  </body>
+</html>
